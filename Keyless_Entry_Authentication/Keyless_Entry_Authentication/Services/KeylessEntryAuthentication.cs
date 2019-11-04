@@ -1,23 +1,29 @@
 ﻿using System;
+using System.Globalization;
+
 namespace Keyless_Entry_Authentication.Service
 {
     public class KeylessEntryAuthentication : IKeylessEntryAuthentication
     {
-        private readonly int _key;
+        private readonly byte[] _key;
 
         public KeylessEntryAuthentication()
         {
-            _key = 0;
+            var random = new Random();
+            var bytes = new byte[5];
+            random.NextBytes(bytes);
+
+            _key = bytes;
         }
 
-        public bool Authenticate(int transmission)
+        public bool Authenticate(byte[] transmission)
         {
-            throw new NotImplementedException();
+            return transmission == _key;
         }
 
-        public bool TwoFactorAuthenticate(int id, int transmission)
+        public bool TwoFactorAuthenticate(int id, byte[] transmission)
         {
-            var databaseId = 0;
+            var databaseId = 1;
 
             if (id == databaseId)
             {

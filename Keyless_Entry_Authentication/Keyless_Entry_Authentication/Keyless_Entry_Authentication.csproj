@@ -8,4 +8,7 @@
   <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="CreateAndAuthenticate.cs" />
+  </ItemGroup>
 </Project>
