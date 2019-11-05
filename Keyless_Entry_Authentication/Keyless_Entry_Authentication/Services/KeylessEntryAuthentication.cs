@@ -1,7 +1,7 @@
 ﻿using System;
 using Keyless_Entry_Authentication.Interfaces;
 
-namespace Keyless_Entry_Authentication.Service
+namespace Keyless_Entry_Authentication.Services
 {
     public class KeylessEntryAuthentication : IKeylessEntryAuthentication
     {
