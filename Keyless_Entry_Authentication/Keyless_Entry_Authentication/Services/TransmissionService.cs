@@ -8,7 +8,7 @@ namespace Keyless_Entry_Authentication.Services
     {
         private static int _attempts;
         private static bool _canAuthenticate = true;
-        private static readonly int _allowedAttempts = 5;
+        private static readonly int _allowedAttempts = 1;
         private static DateTime _now;
         private static DateTime _end;
         private static IBinaryService _binaryService;
@@ -69,6 +69,11 @@ namespace Keyless_Entry_Authentication.Services
             }
         }
 
+        /*
+         * TODO: Move this function to its own service, possibly
+         * returning bool. Have attempts and can authenticate reset
+         * based on boolean return.
+         */
         private void CheckTimer(DateTime now, DateTime end)
         {
             if (now > end)
