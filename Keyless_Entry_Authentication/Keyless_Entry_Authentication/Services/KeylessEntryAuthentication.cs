@@ -55,7 +55,7 @@ namespace Keyless_Entry_Authentication.Services
 
                 var input = Console.ReadLine();
 
-                if (input == body)
+                if (input == code)
                 {
                     return Authenticate(transmission);
                 }
