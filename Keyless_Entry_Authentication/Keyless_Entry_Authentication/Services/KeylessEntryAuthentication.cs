@@ -8,6 +8,7 @@ namespace Keyless_Entry_Authentication.Services
     {
         private readonly byte[] _key;
         private readonly ISMSService _smsService;
+        private static readonly Random rdm = new Random();
 
         public KeylessEntryAuthentication()
         {
@@ -38,24 +39,24 @@ namespace Keyless_Entry_Authentication.Services
              *       Wait for user input into console
              *       Authenticate ID then authenticate transmission and return
              */
-            var to = new PhoneNumber("+14058500738");
+            var to = new PhoneNumber("+14055882799");
             var from = new PhoneNumber("+12028835325");
             var body = "Your keyless entry verification code is: ";
-            var code = ""; // TODO: Create a function for creating a six digit verification code
-                           //       then set code to be that function ToString()
+            var code = GenerateRandomKey(); 
 
             body += code;
 
-
             try
             {
+                _smsService.SendMessage(to, from, body);
+
                 // TODO: Prompt user for email or text preference
                 //       (Currently only sends text message)
                 //var message = _smsService.SendMessage(to, from, body);
 
-                var input = Console.ReadLine();
+                String input = Console.ReadLine();
 
-                if (input == code)
+                if (input == code.ToString())
                 {
                     return Authenticate(transmission);
                 }
@@ -66,6 +67,14 @@ namespace Keyless_Entry_Authentication.Services
             }
 
             return false;
+        }
+
+        public int GenerateRandomKey()
+        {
+            int result;
+            result =  rdm.Next(100000, 1000000); //generate number from 100000 - 999999
+            Console.WriteLine("Random Num: " + result); //debug
+            return result;
         }
     }
 }
