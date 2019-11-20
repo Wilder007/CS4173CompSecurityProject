@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Data.SqlClient;
+using System.Linq.Expressions;
 using Twilio.Types;
 using Keyless_Entry_Authentication.Interfaces;
+using System.Configuration;
+using System.Data;
 
 namespace Keyless_Entry_Authentication.Services
 {
@@ -27,12 +31,28 @@ namespace Keyless_Entry_Authentication.Services
 
         public bool TwoFactorAuthenticate(int id, byte[] transmission)
         {
-            var databaseId = 11;
+            var databaseId = 394812;
 
-            if (id == databaseId)
+            var conn = ConfigurationManager.ConnectionStrings["DbConn"].ConnectionString; //db connection.
+            using (SqlConnection sqlConn = new SqlConnection(conn))
             {
-                return Authenticate(transmission);
+                try
+                {
+                    sqlConn.Open();
+                    //Verify hard coded ID to see if registered if cool if not insert into table.
+                    string search = "Select Id from CarInfo WHERE Id = " + databaseId;
+                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error in SQL in TFA. Error: " + ex.ToString());
+                }
             }
+
+                if (id == databaseId)
+                {
+                    return Authenticate(transmission);
+                }
 
             /* TODO: Generate random authentication key
              *       Send email/text with key
