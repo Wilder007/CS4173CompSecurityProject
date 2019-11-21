@@ -34,7 +34,7 @@ namespace Keyless_Entry_Authentication.Services
 
         public bool TwoFactorAuthenticate(int id, byte[] transmission)
         {
-            var carId = 876345;
+            var carId = 629102;
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
                 try
@@ -46,22 +46,27 @@ namespace Keyless_Entry_Authentication.Services
 
                     SqlCommand command = new SqlCommand(search, sqlConn);
                     SqlDataReader dataReader = command.ExecuteReader();
-                    List<CarInfo> Cars = new List<CarInfo>();
+                    CarInfo Car = new CarInfo();
                     while (dataReader.Read())
                     {
                         string result = dataReader["Id"].ToString();
                         if (result.Equals(carId.ToString()))
                         {
                             Console.WriteLine("Car Id Authenticated!");
+                            Car.Id = carId;
+                            Car.SendSMS = (int)dataReader["SendSMS"];
+                            Car.PhoneNum = dataReader["PhoneNum"].ToString();
+                            Car.Email = dataReader["Email"].ToString();
+
                             //Car matches DB now see if key matches with the car.
-                            var r = CompareKeys(carId, id);
+                            var r = CompareKeys(Car, id);
                             if (r)
                                 return true;
                         }
                     }
                     sqlConn.Close();
                     //Car is not authenticated.
-                    Console.WriteLine("Car is not Authenticated.");
+                    Console.WriteLine("Car/Key is not Authenticated.");
                     return false;
                 }
                 catch (Exception ex)
@@ -111,7 +116,7 @@ namespace Keyless_Entry_Authentication.Services
             return false;
         }
 
-        public bool CompareKeys(int carId, int keyId)
+        public bool CompareKeys(CarInfo car, int keyId)
         {
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
@@ -140,7 +145,7 @@ namespace Keyless_Entry_Authentication.Services
                         {
                             Console.WriteLine("Key Id found!\nAutheticating with Car...");
                             string carId2 = dataReader["Car_Id"].ToString();
-                            if (carId.ToString().Equals(carId2))
+                            if (car.Id.ToString().Equals(carId2))
                             {
                                 times_called++;
                                 times_successful++;
@@ -161,7 +166,7 @@ namespace Keyless_Entry_Authentication.Services
                     }
                     sqlConn.Close(); //Don't need anymore close it.
                     //Key not found. Send message to authenticte the key.
-                    var to = new PhoneNumber("+14055882799");
+                    var to = new PhoneNumber(car.PhoneNum);
                     var from = new PhoneNumber("+12028835325");
                     var body = "Your keyless entry verification code is: ";
                     var code = GenerateRandomKey();
@@ -174,7 +179,7 @@ namespace Keyless_Entry_Authentication.Services
                     if (input == code.ToString())
                     {
                         //Create new key fob in the table.
-                        AuthenticateKeyFob(carId, keyId);
+                        AuthenticateKeyFob(car.Id, keyId);
                         return true;
                     }
                     Console.WriteLine("Incorrect code.. Cannot Authenticate!");

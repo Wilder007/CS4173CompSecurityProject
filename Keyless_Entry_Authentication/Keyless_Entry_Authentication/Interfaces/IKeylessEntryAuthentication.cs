@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Keyless_Entry_Authentication.DAL;
+using System;
 
 namespace Keyless_Entry_Authentication.Interfaces
 {
@@ -8,7 +9,7 @@ namespace Keyless_Entry_Authentication.Interfaces
 
         bool TwoFactorAuthenticate(int id, byte[] transmission);
 
-        bool CompareKeys(int carId, int keyId);
+        bool CompareKeys(CarInfo car, int keyId);
 
         void UpdateKeyInfo(int keyId, int timesCalled, int timeSucc);
 
