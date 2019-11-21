@@ -34,7 +34,7 @@ namespace Keyless_Entry_Authentication.Services
 
         public bool TwoFactorAuthenticate(int id, byte[] transmission)
         {
-            var carId = 629102;
+            var carId = 876345;
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
                 try
@@ -209,6 +209,8 @@ namespace Keyless_Entry_Authentication.Services
                     int result = command.ExecuteNonQuery();
                     if (result != 1)
                         Console.WriteLine("Error updating KeyInfo.");
+
+                    sqlConn.Close();
                 }
                 catch (Exception ex)
                 {
