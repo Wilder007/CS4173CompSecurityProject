@@ -15,7 +15,8 @@ namespace Keyless_Entry_Authentication.Services
         private readonly byte[] _key;
         private readonly ISMSService _smsService;
         private static readonly Random rdm = new Random();
-
+        private readonly string conn = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString; //db connection.
+        
         public KeylessEntryAuthentication()
         {
             var random = new Random();
@@ -33,9 +34,7 @@ namespace Keyless_Entry_Authentication.Services
 
         public bool TwoFactorAuthenticate(int id, byte[] transmission)
         {
-            var databaseId = 394812;
-
-            var conn = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString; //db connection.
+            var carId = 629102;
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
                 try
@@ -50,13 +49,17 @@ namespace Keyless_Entry_Authentication.Services
                     List<CarInfo> Cars = new List<CarInfo>();
                     while (dataReader.Read())
                     {
-                        var result = dataReader["Id"];
-                        if (result.Equals(databaseId.ToString()))
+                        string result = dataReader["Id"].ToString();
+                        if (result.Equals(carId.ToString()))
                         {
                             Console.WriteLine("Car Id Authenticated!");
                             //Car matches DB now see if key matches with the car.
+                            var r = CompareKeys(carId, id);
+                            if (r)
+                                return true;
                         }
                     }
+                    sqlConn.Close();
                     //Car is not authenticated.
                     Console.WriteLine("Car is not Authenticated.");
                     return false;
@@ -67,7 +70,7 @@ namespace Keyless_Entry_Authentication.Services
                 }
             }
 
-                if (id == databaseId)
+                if (id == carId)
                 {
                     return Authenticate(transmission);
                 }
@@ -76,7 +79,7 @@ namespace Keyless_Entry_Authentication.Services
              *       Send email/text with key
              *       Wait for user input into console
              *       Authenticate ID then authenticate transmission and return
-             */
+             *
             var to = new PhoneNumber("+14055882799");
             var from = new PhoneNumber("+12028835325");
             var body = "Your keyless entry verification code is: ";
@@ -103,10 +106,98 @@ namespace Keyless_Entry_Authentication.Services
             {
                 Console.WriteLine(ex.Message);
             }
+            */
 
             return false;
         }
 
+        public bool CompareKeys(int carId, int keyId)
+        {
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                try
+                {
+                    sqlConn.Open();
+                    //Verify hard coded ID to see if registered.
+
+                    string search = "Select * from KeyInfo";
+
+                    SqlCommand command = new SqlCommand(search, sqlConn);
+                    SqlDataReader dataReader = command.ExecuteReader();
+                    KeyInfo keyInfo = new KeyInfo();  //New key information.
+                    while (dataReader.Read())
+                    {
+                        /*Read to see if the key id is in the table. 
+                          If the key is there see if it is associated with the car id. 
+                          If not then populate then insert into the table with
+                          the carId assoicated with it.
+                        */
+
+                        string result = dataReader["Id"].ToString();
+                        if (result.Equals(keyId.ToString()))
+                        {
+                            Console.WriteLine("Key Id found!\nAutheticating with Car...");
+                            string carId2 = dataReader["Car_Id"].ToString();
+                            if (carId.Equals(carId2))
+                                return true; //return true.
+                            else
+                                return false;
+                            //Car matches DB now see if key matches with the car.
+                        }
+                    }
+                    sqlConn.Close(); //Don't need anymore close it.
+                    //Key not found. Send message to authenticte the key.
+                    var to = new PhoneNumber("+14055882799");
+                    var from = new PhoneNumber("+12028835325");
+                    var body = "Your keyless entry verification code is: ";
+                    var code = GenerateRandomKey();
+
+                    body += code;
+                    _smsService.SendMessage(to, from, body);
+                    
+                    String input = Console.ReadLine();
+
+                    if (input == code.ToString())
+                    {
+                        //Create new key fob in the table.
+                        AuthenticateKeyFob(carId, keyId);
+                        return true;
+                    }
+                    Console.WriteLine("Incorrect code.. Cannot Authenticate!");
+                    return false; //placeholder.
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error in CompareKeys. Error:" + ex.ToString());
+                    return false;
+                }
+            }
+        }
+
+        public void AuthenticateKeyFob(int carId, int keyId)
+        {
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                try
+                {
+                    sqlConn.Open();
+                    //Verify hard coded ID to see if registered.
+
+                    string insert = "Insert into KeyInfo (Id, Car_Id, Times_Called)" +
+                        " VALUES (" + keyId + "," + carId + "," + 0 + ")";
+                    SqlCommand command = new SqlCommand(insert, sqlConn);
+                    int result = command.ExecuteNonQuery();
+                    if (result == 1)
+                        Console.WriteLine("Authenticated Key Fob!");
+                    
+                    sqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error in AuthenticateKeyFob. Error:" + ex.ToString());
+                }
+            }
+        }
         public int GenerateRandomKey()
         {
             int result;
