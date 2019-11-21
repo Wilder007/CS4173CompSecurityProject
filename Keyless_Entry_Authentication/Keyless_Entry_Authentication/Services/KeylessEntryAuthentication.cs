@@ -14,6 +14,7 @@ namespace Keyless_Entry_Authentication.Services
     {
         private readonly byte[] _key;
         private readonly ISMSService _smsService;
+        private static readonly int carId = 876345;
         private static readonly Random rdm = new Random();
         private readonly string conn = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString; //db connection.
         
@@ -34,29 +35,30 @@ namespace Keyless_Entry_Authentication.Services
 
         public bool TwoFactorAuthenticate(int id, byte[] transmission)
         {
-            var carId = 629102;
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
                 try
                 {
-                    sqlConn.Open();
                     //Verify hard coded ID to see if registered.
-                    
-                    string search = "Select * from CarInfo";
+                    sqlConn.Open();
 
-                    SqlCommand command = new SqlCommand(search, sqlConn);
-                    SqlDataReader dataReader = command.ExecuteReader();
-                    List<CarInfo> Cars = new List<CarInfo>();
+                    var search = "Select * from CarInfo";
+                    var command = new SqlCommand(search, sqlConn);
+                    var dataReader = command.ExecuteReader();
+
                     while (dataReader.Read())
                     {
-                        string result = dataReader["Id"].ToString();
+                        var result = dataReader["Id"].ToString();
+
                         if (result.Equals(carId.ToString()))
                         {
                             Console.WriteLine("Car Id Authenticated!");
                             //Car matches DB now see if key matches with the car.
-                            var r = CompareKeys(carId, id);
-                            if (r)
+                            var keyAuthenticated = CompareKeys(carId, id);
+                            if (keyAuthenticated)
+                            {
                                 return true;
+                            }
                         }
                     }
                     sqlConn.Close();
@@ -74,39 +76,6 @@ namespace Keyless_Entry_Authentication.Services
                 {
                     return Authenticate(transmission);
                 }
-
-            /* TODO: Generate random authentication key
-             *       Send email/text with key
-             *       Wait for user input into console
-             *       Authenticate ID then authenticate transmission and return
-             *
-            var to = new PhoneNumber("+14055882799");
-            var from = new PhoneNumber("+12028835325");
-            var body = "Your keyless entry verification code is: ";
-            var code = GenerateRandomKey(); 
-
-            body += code;
-
-            try
-            {
-                _smsService.SendMessage(to, from, body);
-
-                // TODO: Prompt user for email or text preference
-                //       (Currently only sends text message)
-                //var message = _smsService.SendMessage(to, from, body);
-
-                String input = Console.ReadLine();
-
-                if (input == code.ToString())
-                {
-                    return Authenticate(transmission);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            */
 
             return false;
         }
