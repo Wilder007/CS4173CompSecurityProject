@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyless_Entry_Authentication", "Keyless_Entry_Authentication\Keyless_Entry_Authentication.csproj", "{4A5914A6-F86E-4D57-B84E-A1FBFA7EF76F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyless_Entry_Authentication_Tests", "Keyless_Entry_Authentication_Tests\Keyless_Entry_Authentication_Tests.csproj", "{180F0734-2592-4CC6-9BD2-A3EEA0F84611}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyless_Entry_Authentication_Tests", "Keyless_Entry_Authentication_Tests\Keyless_Entry_Authentication_Tests.csproj", "{48818000-B837-4BBC-9CB4-871F1D5AEBD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		{4A5914A6-F86E-4D57-B84E-A1FBFA7EF76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A5914A6-F86E-4D57-B84E-A1FBFA7EF76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A5914A6-F86E-4D57-B84E-A1FBFA7EF76F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{180F0734-2592-4CC6-9BD2-A3EEA0F84611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{180F0734-2592-4CC6-9BD2-A3EEA0F84611}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{180F0734-2592-4CC6-9BD2-A3EEA0F84611}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{180F0734-2592-4CC6-9BD2-A3EEA0F84611}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48818000-B837-4BBC-9CB4-871F1D5AEBD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48818000-B837-4BBC-9CB4-871F1D5AEBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48818000-B837-4BBC-9CB4-871F1D5AEBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48818000-B837-4BBC-9CB4-871F1D5AEBD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

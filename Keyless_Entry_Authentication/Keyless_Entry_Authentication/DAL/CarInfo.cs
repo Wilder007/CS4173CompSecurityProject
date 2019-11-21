@@ -13,17 +13,17 @@ namespace Keyless_Entry_Authentication.DAL
         public string PhoneNum { get; set; }
         public string Email { get; set; }
 
-        public CarInfo()
-        {
-            //default.
-        }
+        //public CarInfo()
+        //{
+        //    //default.
+        //}
 
-        public CarInfo(int Id, int SendSMS, string PhoneNum, string Email)
-        {
-            this.Id = Id;
-            this.SendSMS = SendSMS;
-            this.PhoneNum = PhoneNum;
-            this.Email = Email;
-        }
+        //public CarInfo(int Id, int SendSMS, string PhoneNum, string Email)
+        //{
+        //    this.Id = Id;
+        //    this.SendSMS = SendSMS;
+        //    this.PhoneNum = PhoneNum;
+        //    this.Email = Email;
+        //}
     }
 }

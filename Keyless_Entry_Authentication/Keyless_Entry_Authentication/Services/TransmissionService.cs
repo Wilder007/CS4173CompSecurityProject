@@ -8,7 +8,7 @@ namespace Keyless_Entry_Authentication.Services
     {
         private static int _attempts;
         private static bool _canAuthenticate = true;
-        private static readonly int _allowedAttempts = 1;
+        private static readonly int _allowedAttempts = 2;
         private static DateTime _now;
         private static DateTime _end;
         private static IBinaryService _binaryService;
@@ -24,7 +24,7 @@ namespace Keyless_Entry_Authentication.Services
         {
             _end = DateTime.Now.AddSeconds(10);
             
-            var id = 827392; // TODO: Placeholder value meant to represent the unique Key ID
+            var id = 567432; // TODO: Placeholder value meant to represent the unique Key ID
 
             while (true)
             {
@@ -45,6 +45,7 @@ namespace Keyless_Entry_Authentication.Services
                         else
                         {
                             Console.WriteLine("Authentication successful!");
+                            break;
                         }
 
                         _attempts++;
@@ -58,7 +59,7 @@ namespace Keyless_Entry_Authentication.Services
                 }
                 else
                 {
-                    if (_attempts == 5)
+                    if (_attempts == _allowedAttempts)
                     {
                         Console.WriteLine("The allowed number of authentication attempts has been exceeded.");
                     }
