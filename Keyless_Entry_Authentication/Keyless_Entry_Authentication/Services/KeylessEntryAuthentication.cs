@@ -5,6 +5,8 @@ using Twilio.Types;
 using Keyless_Entry_Authentication.Interfaces;
 using System.Configuration;
 using System.Data;
+using Keyless_Entry_Authentication.DAL;
+using System.Collections.Generic;
 
 namespace Keyless_Entry_Authentication.Services
 {
@@ -33,15 +35,31 @@ namespace Keyless_Entry_Authentication.Services
         {
             var databaseId = 394812;
 
-            var conn = ConfigurationManager.ConnectionStrings["DbConn"].ConnectionString; //db connection.
+            var conn = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString; //db connection.
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
                 try
                 {
                     sqlConn.Open();
-                    //Verify hard coded ID to see if registered if cool if not insert into table.
-                    string search = "Select Id from CarInfo WHERE Id = " + databaseId;
+                    //Verify hard coded ID to see if registered.
                     
+                    string search = "Select * from CarInfo";
+
+                    SqlCommand command = new SqlCommand(search, sqlConn);
+                    SqlDataReader dataReader = command.ExecuteReader();
+                    List<CarInfo> Cars = new List<CarInfo>();
+                    while (dataReader.Read())
+                    {
+                        var result = dataReader["Id"];
+                        if (result.Equals(databaseId.ToString()))
+                        {
+                            Console.WriteLine("Car Id Authenticated!");
+                            //Car matches DB now see if key matches with the car.
+                        }
+                    }
+                    //Car is not authenticated.
+                    Console.WriteLine("Car is not Authenticated.");
+                    return false;
                 }
                 catch (Exception ex)
                 {
