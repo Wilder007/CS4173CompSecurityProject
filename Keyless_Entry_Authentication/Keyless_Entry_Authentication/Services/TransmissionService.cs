@@ -24,7 +24,7 @@ namespace Keyless_Entry_Authentication.Services
         {
             _end = DateTime.Now.AddSeconds(10);
             
-            var id = 827392; // TODO: Placeholder value meant to represent the unique Key ID
+            var id = 567432; // TODO: Placeholder value meant to represent the unique Key ID
 
             while (true)
             {
@@ -45,6 +45,7 @@ namespace Keyless_Entry_Authentication.Services
                         else
                         {
                             Console.WriteLine("Authentication successful!");
+                            break;
                         }
 
                         _attempts++;
