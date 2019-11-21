@@ -45,6 +45,7 @@ namespace Keyless_Entry_Authentication.Services
                     var search = "Select * from CarInfo";
                     var command = new SqlCommand(search, sqlConn);
                     var dataReader = command.ExecuteReader();
+                    var Car = new CarInfo();
 
                     while (dataReader.Read())
                     {
@@ -53,6 +54,11 @@ namespace Keyless_Entry_Authentication.Services
                         if (result.Equals(carId.ToString()))
                         {
                             Console.WriteLine("Car Id Authenticated!");
+                            Car.Id = carId;
+                            Car.SendSMS = (int)dataReader["SendSMS"];
+                            Car.PhoneNum = dataReader["PhoneNum"].ToString();
+                            Car.Email = dataReader["Email"].ToString();
+
                             //Car matches DB now see if key matches with the car.
                             var keyAuthenticated = CompareKeys(carId, id);
                             if (keyAuthenticated)
@@ -63,7 +69,7 @@ namespace Keyless_Entry_Authentication.Services
                     }
                     sqlConn.Close();
                     //Car is not authenticated.
-                    Console.WriteLine("Car is not Authenticated.");
+                    Console.WriteLine("Car/Key is not Authenticated.");
                     return false;
                 }
                 catch (Exception ex)
@@ -80,7 +86,7 @@ namespace Keyless_Entry_Authentication.Services
             return false;
         }
 
-        public bool CompareKeys(int carId, int keyId)
+        public bool CompareKeys(CarInfo car, int keyId)
         {
             using (SqlConnection sqlConn = new SqlConnection(conn))
             {
@@ -103,20 +109,34 @@ namespace Keyless_Entry_Authentication.Services
                         */
 
                         string result = dataReader["Id"].ToString();
+                        int times_called = (int)dataReader["Times_Called"];
+                        int times_successful = (int)dataReader["Times_Successful"];
                         if (result.Equals(keyId.ToString()))
                         {
                             Console.WriteLine("Key Id found!\nAutheticating with Car...");
                             string carId2 = dataReader["Car_Id"].ToString();
-                            if (carId.Equals(carId2))
+                            if (car.Id.ToString().Equals(carId2))
+                            {
+                                times_called++;
+                                times_successful++;
+                                //Update key info.
+                                UpdateKeyInfo(keyId, times_called, times_successful);
                                 return true; //return true.
+                            }
                             else
+                            {
+                                times_called++;
+                                //Update key info.
+                                UpdateKeyInfo(keyId, times_called, times_successful);
+
                                 return false;
+                            }
                             //Car matches DB now see if key matches with the car.
                         }
                     }
                     sqlConn.Close(); //Don't need anymore close it.
                     //Key not found. Send message to authenticte the key.
-                    var to = new PhoneNumber("+14055882799");
+                    var to = new PhoneNumber(car.PhoneNum);
                     var from = new PhoneNumber("+12028835325");
                     var body = "Your keyless entry verification code is: ";
                     var code = GenerateRandomKey();
@@ -129,7 +149,7 @@ namespace Keyless_Entry_Authentication.Services
                     if (input == code.ToString())
                     {
                         //Create new key fob in the table.
-                        AuthenticateKeyFob(carId, keyId);
+                        AuthenticateKeyFob(car.Id, keyId);
                         return true;
                     }
                     Console.WriteLine("Incorrect code.. Cannot Authenticate!");
@@ -143,6 +163,32 @@ namespace Keyless_Entry_Authentication.Services
             }
         }
 
+        public void UpdateKeyInfo(int keyId, int timesCalled, int timesSucc)
+        {
+            using (SqlConnection sqlConn = new SqlConnection(conn))
+            {
+                try
+                {
+                    sqlConn.Open();
+                    //Verify hard coded ID to see if registered.
+
+                    string search = "Update KeyInfo Set times_called = " + timesCalled
+                        + ", times_successful = " + timesSucc + "WHERE Id = " + keyId;
+
+                    SqlCommand command = new SqlCommand(search, sqlConn);
+                    int result = command.ExecuteNonQuery();
+                    if (result != 1)
+                        Console.WriteLine("Error updating KeyInfo.");
+
+                    sqlConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error in UpdateKeyInfo. Error: " + ex.ToString());
+                }
+            }
+        }
+
         public void AuthenticateKeyFob(int carId, int keyId)
         {
             using (SqlConnection sqlConn = new SqlConnection(conn))
@@ -152,8 +198,8 @@ namespace Keyless_Entry_Authentication.Services
                     sqlConn.Open();
                     //Verify hard coded ID to see if registered.
 
-                    string insert = "Insert into KeyInfo (Id, Car_Id, Times_Called)" +
-                        " VALUES (" + keyId + "," + carId + "," + 0 + ")";
+                    string insert = "Insert into KeyInfo (Id, Car_Id, Times_Called, Times_Successful)" +
+                        " VALUES (" + keyId + "," + carId + "," + 1 + "," + 1 + ")";
                     SqlCommand command = new SqlCommand(insert, sqlConn);
                     int result = command.ExecuteNonQuery();
                     if (result == 1)
