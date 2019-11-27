@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Linq.Expressions;
-using Twilio.Types;
 using Keyless_Entry_Authentication.Interfaces;
-using System.Configuration;
-using System.Data;
-using Keyless_Entry_Authentication.DAL;
-using System.Collections.Generic;
 
 namespace Keyless_Entry_Authentication.Services
 {

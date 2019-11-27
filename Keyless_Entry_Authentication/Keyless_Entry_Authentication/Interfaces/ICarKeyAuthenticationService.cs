@@ -1,5 +1,4 @@
-﻿using System;
-using Keyless_Entry_Authentication.DAL;
+﻿using Keyless_Entry_Authentication.DAL;
 
 namespace Keyless_Entry_Authentication.Interfaces
 {
