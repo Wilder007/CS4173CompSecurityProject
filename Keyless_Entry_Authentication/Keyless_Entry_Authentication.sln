@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyless_Entry_Authenticatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyless_Entry_Authentication_Tests", "Keyless_Entry_Authentication_Tests\Keyless_Entry_Authentication_Tests.csproj", "{48818000-B837-4BBC-9CB4-871F1D5AEBD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyless_Entry_Transmission", "Keyless_Entry_Transmission\Keyless_Entry_Transmission.csproj", "{ACADBF9D-4F9E-445D-BC7D-71AA0299ED5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{48818000-B837-4BBC-9CB4-871F1D5AEBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48818000-B837-4BBC-9CB4-871F1D5AEBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48818000-B837-4BBC-9CB4-871F1D5AEBD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACADBF9D-4F9E-445D-BC7D-71AA0299ED5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACADBF9D-4F9E-445D-BC7D-71AA0299ED5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACADBF9D-4F9E-445D-BC7D-71AA0299ED5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACADBF9D-4F9E-445D-BC7D-71AA0299ED5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

@@ -1,6 +1,5 @@
 ﻿using System;
 using Keyless_Entry_Authentication.Interfaces;
-using Keyless_Entry_Authentication.Services;
 
 namespace Keyless_Entry_Authentication.Services
 {
