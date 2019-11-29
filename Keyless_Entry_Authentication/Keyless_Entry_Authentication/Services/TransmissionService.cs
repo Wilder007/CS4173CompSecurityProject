@@ -23,7 +23,7 @@ namespace Keyless_Entry_Authentication.Services
         {
             _end = DateTime.Now.AddSeconds(10);
             
-            var id = 567432; // TODO: Placeholder value meant to represent the unique Key ID
+            var keyId = 567432; // TODO: Placeholder value meant to represent the unique Key ID
 
             while (true)
             {
@@ -34,8 +34,8 @@ namespace Keyless_Entry_Authentication.Services
                     if (_attempts < _allowedAttempts)
                     {
                         // Generates a random five byte array (since key transmissions are 40 bits in length)
-                        var transmission = _binaryService.ByteGenerator();
-                        var result = _authenticationService.TwoFactorAuthenticate(id, transmission);
+                        var transmission = _binaryService.ConvertByte(keyId);
+                        var result = _authenticationService.TwoFactorAuthenticate(keyId, transmission);
 
                         if (!result)
                         {

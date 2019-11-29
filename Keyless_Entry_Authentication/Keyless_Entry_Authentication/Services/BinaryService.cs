@@ -35,5 +35,13 @@ namespace Keyless_Entry_Authentication.Services
 
             return res;
         }
+
+        public byte[] ConvertByte(int num)
+        {
+            byte[] arr = BitConverter.GetBytes(num);
+            Array.Reverse(arr);
+            byte[] result = arr;
+            return result;
+        }
     }
 }

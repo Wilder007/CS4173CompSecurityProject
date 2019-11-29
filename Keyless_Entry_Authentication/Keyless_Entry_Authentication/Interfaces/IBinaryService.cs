@@ -7,5 +7,7 @@ namespace Keyless_Entry_Authentication.Interfaces
         byte[] ByteGenerator();
 
         string BinaryRepresentation(byte[] transmission);
+
+        byte[] ConvertByte(int num);
     }
 }
