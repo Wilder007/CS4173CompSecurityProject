@@ -35,6 +35,8 @@ namespace Keyless_Entry_Authentication.Services
                     {
                         // Generates a random five byte array (since key transmissions are 40 bits in length)
                         var transmission = _binaryService.ConvertByte(keyId);
+                        Console.WriteLine("Attempting to authenticate the following 40-bit key:\n{0}",
+                            _binaryService.BinaryRepresentation(transmission));
                         var result = _authenticationService.TwoFactorAuthenticate(keyId, transmission);
 
                         if (!result)
