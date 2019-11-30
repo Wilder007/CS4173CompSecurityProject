@@ -33,13 +33,13 @@ namespace Keyless_Entry_Authentication
 
                     // Perform a blocking call to accept requests.
                     // You could also user server.AcceptSocket() here.
-                    TcpClient client = server.AcceptTcpClient();
+                    var client = server.AcceptTcpClient();
                     Console.WriteLine("Connected!");
 
                     data = null;
 
                     // Get a stream object for reading and writing
-                    NetworkStream stream = client.GetStream();
+                    var stream = client.GetStream();
 
                     int i;
 
@@ -53,7 +53,7 @@ namespace Keyless_Entry_Authentication
                         // Process the data sent by the client.
                         data = data.ToUpper();
 
-                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+                        var msg = System.Text.Encoding.ASCII.GetBytes(data);
 
                         // Send back a response.
                         stream.Write(msg, 0, msg.Length);
