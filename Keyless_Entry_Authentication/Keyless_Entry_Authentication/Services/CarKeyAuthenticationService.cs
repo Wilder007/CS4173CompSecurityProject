@@ -50,9 +50,9 @@ namespace Keyless_Entry_Authentication.Services
 
                         while (dataReader.Read())
                         {
-                            var result = dataReader["Id"].ToString();
+                            var result = (int)dataReader["Id"];
 
-                            if (result.Equals(carId.ToString()))
+                            if (result == carId)
                             {
                                 Console.WriteLine("Car Id Authenticated!");
 
@@ -91,9 +91,7 @@ namespace Keyless_Entry_Authentication.Services
                 var search = "Select * from KeyInfo";
                 var command = new SqlCommand(search, sqlConn);
                 var dataReader = command.ExecuteReader();
-                var timesCalled = (int)dataReader["Times_Called"];
-                var timesSuccessful = (int)dataReader["Times_Successful"];
-
+                
                 /*
                  * Read to see if the key id is in the table. 
                  * If the key is there see if it is associated with the car id. 
@@ -102,18 +100,20 @@ namespace Keyless_Entry_Authentication.Services
                  */
                 while (dataReader.Read())
                 { 
-                    var result = dataReader["Id"].ToString();
+                    var result = (int)dataReader["Id"];
 
-                    if (result.Equals(keyId.ToString()))
+                    if (result == keyId)
                     {
                         Console.WriteLine("Key Id found!\nAutheticating with Car...");
-                        var dbCarId = dataReader["Car_Id"].ToString();
+                        var dbCarId = (int)dataReader["Car_Id"];
+                        var timesCalled = (int)dataReader["Times_Called"];
+                        var timesSuccessful = (int)dataReader["Times_Successful"];
 
                         /*
                          * If the key ID has an entry in its table that matches
                          * the car we're sending transmissions to return true
                          */
-                        if (car.Id.ToString().Equals(dbCarId))
+                        if (car.Id == dbCarId)
                         {
                             timesCalled++;
                             timesSuccessful++;
