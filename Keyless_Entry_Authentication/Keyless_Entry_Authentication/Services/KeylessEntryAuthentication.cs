@@ -31,6 +31,7 @@ namespace Keyless_Entry_Authentication.Services
             if (keyIsAuthenticated)
             {
                 return Authenticate(keyTransmission);
+                //return true;
             }
 
             return false;
