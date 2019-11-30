@@ -37,13 +37,16 @@ namespace Keyless_Entry_Authentication.Services
 
         public byte[] ConvertByte(int num)
         {
-            byte[] arr = BitConverter.GetBytes(num);
+            var arr = BitConverter.GetBytes(num);
+
             //append trailing 0s if length less than 40.
             if (arr.Length < 5)
+            {
                 Array.Resize(ref arr, arr.Length + 1);
+            }
             Array.Reverse(arr);
-            byte[] result = arr;
-            return result;
+
+            return arr;
         }
     }
 }

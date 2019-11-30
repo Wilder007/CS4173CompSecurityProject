@@ -10,6 +10,11 @@ namespace Keyless_Entry_Authentication
 
         public static void Main(string[] args)
         {
+            // TODO: Commenting out for now, in future tasks we will need to update
+            //       functionality such that the transmission service logic is in the
+            //       Keyless_Entry_Transmission solution and the message sent contains
+            //       the keyId and the transmission
+
             //var _transmissionService = new TransmissionService();
             //_transmissionService.CreateTransmissions();
 
@@ -44,7 +49,7 @@ namespace Keyless_Entry_Authentication
                     int i;
 
                     // Loop to receive all the data sent by the client.
-                    while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    while ((i = stream.Read(bytes, 0, bytes.Length)) != 0) 
                     {
                         // Translate data bytes to a ASCII string.
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
