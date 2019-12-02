@@ -24,6 +24,10 @@ a {
   border-color: #1861ac;
 }
 
+.right-align {
+  right: 0;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
