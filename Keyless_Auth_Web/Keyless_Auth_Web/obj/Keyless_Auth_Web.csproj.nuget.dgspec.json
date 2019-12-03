@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj": {}
   },
   "projects": {
@@ -19,12 +20,30 @@
         "configFilePaths": [
           "C:\\Users\\WilderLaptop\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+    "/Users/ryanhernandez/Desktop/git/CS4173/CompSecurityProject/Keyless_Auth_Web/Keyless_Auth_Web/Keyless_Auth_Web.csproj": {}
+  },
+  "projects": {
+    "/Users/ryanhernandez/Desktop/git/CS4173/CompSecurityProject/Keyless_Auth_Web/Keyless_Auth_Web/Keyless_Auth_Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/ryanhernandez/Desktop/git/CS4173/CompSecurityProject/Keyless_Auth_Web/Keyless_Auth_Web/Keyless_Auth_Web.csproj",
+        "projectName": "Keyless_Auth_Web",
+        "projectPath": "/Users/ryanhernandez/Desktop/git/CS4173/CompSecurityProject/Keyless_Auth_Web/Keyless_Auth_Web/Keyless_Auth_Web.csproj",
+        "packagesPath": "/Users/ryanhernandez/.nuget/packages/",
+        "outputPath": "/Users/ryanhernandez/Desktop/git/CS4173/CompSecurityProject/Keyless_Auth_Web/Keyless_Auth_Web/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/ryanhernandez/.nuget/NuGet/NuGet.Config"
+>>>>>>> master
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
