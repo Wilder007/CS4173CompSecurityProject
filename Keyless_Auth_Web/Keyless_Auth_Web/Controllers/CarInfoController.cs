@@ -25,6 +25,11 @@ namespace Keyless_Auth_Web.Controllers
             return View(await _context.CarInfo.Where(x=>x.Owner.Equals("Treyson")).ToListAsync());
         }
 
+        public async Task<IActionResult> Unlock()
+        {
+            return View();
+        }
+
         // GET: CarInfo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -97,8 +102,15 @@ namespace Keyless_Auth_Web.Controllers
             {
                 try
                 {
-                    _context.Update(carInfo);
-                    await _context.SaveChangesAsync();
+                    var keyId = Request.Form["KeyId"].ToString();
+                    //Upload KeyId to sql.
+                    KeyInfo keyInfo = new KeyInfo(keyId);
+                    keyInfo.Car_Id = carInfo.Id;
+                    
+
+
+                    //_keyContext.Add(keyInfo);
+                    //await _keyContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
