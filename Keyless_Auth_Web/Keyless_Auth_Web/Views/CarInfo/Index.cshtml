@@ -4,6 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
+<script>
+    function alerts() {
+        var result = '@TempData["Message"]';
+        if (result.trim() != "")
+            alert(result);
+    }
+    alerts();
+</script>
+
 <h1>Index</h1>
 
 <p>

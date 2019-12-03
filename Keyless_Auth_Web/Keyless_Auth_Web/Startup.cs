@@ -26,6 +26,7 @@ namespace Keyless_Auth_Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddDbContext<CarInfoContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("CarInfoContext")));
