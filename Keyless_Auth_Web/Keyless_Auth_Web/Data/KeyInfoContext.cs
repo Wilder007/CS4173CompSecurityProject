@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Keyless_Auth_Web.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Keyless_Auth_Web.Data
 {
-    public class CarInfoContext : DbContext
+    public class KeyInfoContext : DbContext
     {
-        public CarInfoContext(DbContextOptions<CarInfoContext> options)
+        public KeyInfoContext(DbContextOptions<KeyInfoContext> options)
             : base(options)
         {
         }
 
-        public DbSet<CarInfo> CarInfo { get; set; }
-
+        public DbSet<KeyInfo> KeyInfo { get; set; }
     }
+    
+    
 }

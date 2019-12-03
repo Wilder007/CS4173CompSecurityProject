@@ -1,6 +1,26 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
+    "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj",
+        "projectName": "Keyless_Auth_Web",
+        "projectPath": "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj",
+        "packagesPath": "C:\\Users\\WilderLaptop\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\WilderLaptop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
     "/Users/ryanhernandez/Desktop/git/CS4173/CompSecurityProject/Keyless_Auth_Web/Keyless_Auth_Web/Keyless_Auth_Web.csproj": {}
   },
   "projects": {
@@ -18,6 +38,7 @@
         ],
         "configFilePaths": [
           "/Users/ryanhernandez/.nuget/NuGet/NuGet.Config"
+>>>>>>> master
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -56,6 +77,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[4.6.0, )"
             }
           },
           "imports": [

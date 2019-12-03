@@ -4,6 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
+<script>
+    function alerts() {
+        var result = '@TempData["Message"]';
+        if (result.trim() != "")
+            alert(result);
+    }
+    alerts();
+</script>
+
 <h1>Index</h1>
 
 <p>
@@ -57,7 +66,6 @@
 
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Register Key</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

@@ -20,5 +20,6 @@ namespace Keyless_Auth_Web.Models
         public string Model { get; set; }
 
         public string Owner { get; set; }
+
     }
 }
