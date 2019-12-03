@@ -8067,19 +8067,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Treyson\\.nuget\\packages\\": {}
+    "C:\\Users\\WilderLaptop\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Treyson\\source\\repos\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj",
+      "projectUniqueName": "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj",
       "projectName": "Keyless_Auth_Web",
-      "projectPath": "C:\\Users\\Treyson\\source\\repos\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj",
-      "packagesPath": "C:\\Users\\Treyson\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Treyson\\source\\repos\\Keyless_Auth_Web\\Keyless_Auth_Web\\obj\\",
+      "projectPath": "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\Keyless_Auth_Web.csproj",
+      "packagesPath": "C:\\Users\\WilderLaptop\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\WilderLaptop\\Desktop\\School shit\\CS 4173 Computer Security\\Project\\CS4173CompSecurityProject\\Keyless_Auth_Web\\Keyless_Auth_Web\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Treyson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\WilderLaptop\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
