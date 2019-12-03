@@ -1,24 +1,11 @@
-using System;
+﻿using System;
 using System.Net.Sockets;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 
-namespace Keyless_Entry_Transmission
+namespace Keyless_Entry_Transmission.Services
 {
-    public class Program
+    public class ConnectionService
     {
-        public static void Main(string[] args)
-        {
-            //var random = new Random();
-            //var bytes = new byte[5];
-            //random.NextBytes(bytes);
-
-            //Connect("192.168.1.144", "123456");
-            //Connect("192.168.1.144", bytes.ToString());
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static void Connect(string server, string message)
+        public void Connect(string server, string message)
         {
             try
             {
@@ -71,12 +58,5 @@ namespace Keyless_Entry_Transmission
             Console.WriteLine("\n Press Enter to continue...");
             Console.Read();
         }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
     }
 }

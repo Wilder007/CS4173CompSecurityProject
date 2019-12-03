@@ -104,7 +104,7 @@ namespace Keyless_Entry_Authentication.Services
 
                     if (result == keyId)
                     {
-                        Console.WriteLine("Key Id found!\nAutheticating with Car...");
+                        Console.WriteLine("Key Id found!\nAuthenticating with Car...");
                         var dbCarId = (int)dataReader["Car_Id"];
                         var timesCalled = (int)dataReader["Times_Called"];
                         var timesSuccessful = (int)dataReader["Times_Successful"];
@@ -137,6 +137,8 @@ namespace Keyless_Entry_Authentication.Services
 
                 _smsService.SendMessage(to, from, body);
 
+                Console.WriteLine("Key ID not associated with car. Sending authentication text...");
+                Console.WriteLine("Confirm 6 digit code below: ");
                 var input = Console.ReadLine();
 
                 if (input == code.ToString())

@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using Keyless_Entry_Authentication.Services;
 
 namespace Keyless_Entry_Authentication
 {
     public class Program
     {
+
+        private static int _attempts;
+        private static bool _canAuthenticate = true;
+        private static readonly int _allowedAttempts = 2;
+        private static DateTime _now;
+        private static DateTime _end;
 
         public static void Main(string[] args)
         {
@@ -15,8 +22,7 @@ namespace Keyless_Entry_Authentication
             //       Keyless_Entry_Transmission solution and the message sent contains
             //       the keyId and the transmission
 
-            //var _transmissionService = new TransmissionService();
-            //_transmissionService.CreateTransmissions();
+            var _authenticationService = new KeylessEntryAuthentication();
 
             var _serverService = new ServerService();
             TcpListener server = null;
@@ -31,9 +37,13 @@ namespace Keyless_Entry_Authentication
                 var bytes = new byte[256];
                 string data = null;
 
+                
+                _end = DateTime.Now.AddSeconds(10);
+
                 // Enter the listening loop.
                 while (true)
                 {
+                    _now = DateTime.Now;
                     Console.Write("Waiting for a connection... ");
 
                     // Perform a blocking call to accept requests.
@@ -48,21 +58,48 @@ namespace Keyless_Entry_Authentication
 
                     int i;
 
-                    // Loop to receive all the data sent by the client.
-                    while ((i = stream.Read(bytes, 0, bytes.Length)) != 0) 
+                    if (_canAuthenticate)
                     {
-                        // Translate data bytes to a ASCII string.
-                        data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                        Console.WriteLine("Received by Car: {0}", data);
+                        if (_attempts < _allowedAttempts)
+                        {
+                            _attempts++;
 
-                        // Process the data sent by the client.
-                        data = data.ToUpper();
+                            // Loop to receive all the data sent by the client.
+                            while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                            {
+                                // Translate data bytes to a ASCII string.
+                                data = Encoding.ASCII.GetString(bytes, 0, i);
+                                break;
+                            }
 
-                        var msg = System.Text.Encoding.ASCII.GetBytes(data);
+                            var transmissions = data.Split(" ");
 
-                        // Send back a response.
-                        stream.Write(msg, 0, msg.Length);
-                        Console.WriteLine("Sent by Car: {0}", data);
+                            var keyId = int.Parse(transmissions[0]);
+                            var keyTransmission = Encoding.ASCII.GetBytes(transmissions[1]);
+                            var res = _authenticationService.TwoFactorAuthenticate(keyId, keyTransmission);
+
+                            if (res)
+                            {
+                                Console.WriteLine("Authentication successful - car unlocked.");
+                                break;
+                            }
+
+                            Console.WriteLine("Authentication failed.");
+                        }
+                        else
+                        {
+                            _attempts++;
+                            _canAuthenticate = false;
+                        }
+
+                        CheckTimer(_now, _end);
+                    }
+                    else
+                    {
+                        Console.WriteLine("The allowed number of authentication attempts has been exceeded.");
+
+                        _attempts++;
+                        CheckTimer(_now, _end);
                     }
 
                     // Shutdown and end connection
@@ -76,6 +113,16 @@ namespace Keyless_Entry_Authentication
             finally
             {
                 server.Stop();
+            }
+        }
+
+        private static void CheckTimer(DateTime now, DateTime end)
+        {
+            if (now > end)
+            {
+                _attempts = 0;
+                _canAuthenticate = true;
+                _end = DateTime.Now.AddSeconds(10);
             }
         }
     }
