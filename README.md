@@ -6,6 +6,7 @@ First you will have to set up the database and update the connection strings.
 
 Below is query to create a DB in SQL Server and populate the tables.
 
+<code>
    CREATE Database CSKADB
 
    Create Table CarInfo (  
@@ -24,11 +25,14 @@ Below is query to create a DB in SQL Server and populate the tables.
       Times_Called int,  
       Times_Successful int  
    );
+</code>
 
 Then insert some values into CarInfo table.  
 Ie.  
 
+<code>
    INSERT INTO CarInfo VALUES (id, datetime, phonenum, make, model, owner)  
+</code>
 
 Now you have to update the connection string the in app.config for the web and console applications.
 
@@ -40,5 +44,6 @@ Once this is done you will have to update the twilio phone number in line 133 on
 You will have to upate the LINQ for the web.  
 Line 30 in the CarInfoController. Change the owner to you to see your registered cars.
 
-Finally, to run the sample key registration web page, simply open Keyless_Web_Auth.sln in Visual Studio and run the solution. 
+Finally, to run the sample key registration web page, simply open Keyless_Web_Auth.sln in Visual Studio and run the solution.
+<br>
 To run the transmission simulator, open Keyless_Entry_Authentication.sln in Visual Studio, and set Keyless_Entry_Authentication as well as Keyless_Entry_Transmission as your startup projects. For the TCP connections to work, you'll need to hard code the IP address of the machine receiving transmissions anywhere you see "ip address goes here". Then simply run the solution. 
