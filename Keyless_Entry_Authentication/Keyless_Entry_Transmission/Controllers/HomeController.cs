@@ -36,7 +36,7 @@ namespace Keyless_Entry_Transmission.Controllers
                 bitString += "0";
             }
 
-            _connectionService.Connect("192.168.1.144", "567432" + " " + bitString);
+            _connectionService.Connect("ip address goes here", "567432" + " " + bitString);
 
             return View();
         }
@@ -49,7 +49,7 @@ namespace Keyless_Entry_Transmission.Controllers
                 bitString += "0";
             }
 
-            _connectionService.Connect("192.168.1.144", "999996" + " " + bitString);
+            _connectionService.Connect("ip address goes here", "999994" + " " + bitString);
 
             return View();
         }
@@ -61,7 +61,7 @@ namespace Keyless_Entry_Transmission.Controllers
             random.NextBytes(bytes);
             var bitString = BitConverter.ToString(bytes);
 
-            _connectionService.Connect("192.168.1.144", "567432" + " " + bitString);
+            _connectionService.Connect("ip address goes here", "567432" + " " + bitString);
 
             return View();
         }

@@ -29,7 +29,7 @@ namespace Keyless_Entry_Authentication
 
             try
             {
-                server = _serverService.CreateServer(IPAddress.Parse("192.168.1.144"), 13000);
+                server = _serverService.CreateServer(IPAddress.Parse("ip address goes here"), 13000);
 
                 server.Start();
 

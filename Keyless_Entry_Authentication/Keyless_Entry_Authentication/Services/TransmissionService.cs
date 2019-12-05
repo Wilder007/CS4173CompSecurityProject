@@ -3,6 +3,10 @@ using Keyless_Entry_Authentication.Interfaces;
 
 namespace Keyless_Entry_Authentication.Services
 {
+    /*
+     * This class is deprecated and the functionality for it has been moved
+     * to the front end
+     */
     public class TransmissionService : ITransmissionService
     {
         private static int _attempts;
