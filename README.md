@@ -6,33 +6,29 @@ First you will have to set up the database and update the connection strings.
 
 Below is query to create a DB in SQL Server and populate the tables.
 
-<code>
-   CREATE Database CSKADB
+CREATE Database CSKADB
 
-   Create Table CarInfo (  
-      Id int primary Key,  
-      Date_Created DateTime,  
-      PhoneNum int,  
-      Make varchar(30),  
-      Model varchar(30),  
-      [Owner] varchar(50)  
-   );
+Create Table CarInfo (  
+   Id int primary Key,  
+   Date_Created DateTime,  
+   PhoneNum int,  
+   Make varchar(30),  
+   Model varchar(30),  
+   [Owner] varchar(50)  
+);
 
-   Create Table KeyInfo (  
-      Id int primary key,  
-      Date_Registered DateTime,  
-      Car_Id int foreign key references CarInfo(Id),  
-      Times_Called int,  
-      Times_Successful int  
-   );
-</code>
+Create Table KeyInfo (  
+   Id int primary key,  
+   Date_Registered DateTime,  
+   Car_Id int foreign key references CarInfo(Id),  
+   Times_Called int,  
+   Times_Successful int  
+);
 
 Then insert some values into CarInfo table.  
 Ie.  
 
-<code>
-   INSERT INTO CarInfo VALUES (id, datetime, phonenum, make, model, owner)  
-</code>
+INSERT INTO CarInfo VALUES (id, datetime, phonenum, make, model, owner)  
 
 Now you have to update the connection string the in app.config for the web and console applications.
 
