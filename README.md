@@ -30,7 +30,7 @@ Ie.
 
 INSERT INTO CarInfo VALUES (id, datetime, phonenum, make, model, owner)  
 
-Now you have to update the connection string the in app.config for the web and console applications.
+Now you have to update the connection string in the app.config file for the web and console applications.
 
 Creation of Twilio Account.  
 Go to: https://www.twilio.com/try-twilio  
