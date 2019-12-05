@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Text;
 using Keyless_Entry_Authentication.Interfaces;
 
 namespace Keyless_Entry_Authentication.Services
@@ -11,17 +11,19 @@ namespace Keyless_Entry_Authentication.Services
         
         public KeylessEntryAuthentication()
         {
-            var random = new Random();
-            var bytes = new byte[5];
-            random.NextBytes(bytes);
+            var bitString = "";
+            for (int i = 0; i < 40; i++)
+            {
+                bitString += "0";
+            }
 
-            _carTransmission = bytes;
+            _carTransmission = Encoding.ASCII.GetBytes(bitString);
             _carKeyAuthenticationService = new CarKeyAuthenticationService();
         }
 
         public bool Authenticate(byte[] keyTransmission)
         {
-            return keyTransmission == _carTransmission;
+            return Encoding.ASCII.GetString(keyTransmission) == Encoding.ASCII.GetString(_carTransmission);
         }
 
         public bool TwoFactorAuthenticate(int keyId, byte[] keyTransmission)

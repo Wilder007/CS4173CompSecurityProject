@@ -3,6 +3,26 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Unlock Car</h1>
+</div>
+<div class="row" style="padding-top: 20px;">
+    <div class="col-sm-4">
+        <input type="button" class="btn btn-success" value="This will work" onclick="location.href='@Url.Action("ConnectSuccess")'" style="width: 200px">
+    </div>
+    <div class="col-sm-6">
+        <h5>Insert 6 digit code here..</h5>
+    </div>
+</div>
+<div class="row" style="padding-top: 10px;">
+    <div class="col-sm-4">
+        <input type="button" class="btn btn-danger" value="Key ID Failure" onclick="location.href='@Url.Action("ConnectKeyFailure")'" style="width: 200px">
+    </div>
+    <div class="col-sm-8">
+        <input type="password" class="form-control" maxlength="6" style="width: 100px; padding-right: 10px;">
+    </div>
+</div>
+<div class="row" style="padding-top: 10px;">
+    <div class="col-sm-4">
+        <input type="button" class="btn btn-danger" value="Transmission Failure" onclick="location.href='@Url.Action("ConnectTransmissionFailure")'" style="width: 200px">
+    </div>
 </div>
